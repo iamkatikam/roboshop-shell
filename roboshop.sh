@@ -33,4 +33,5 @@ for instance in "${INSTANCES[@]}"; do
       ]
     }'
     echo "Route 53 record for $instance.$DOMAIN_NAME created with IP: $IP"
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 done
