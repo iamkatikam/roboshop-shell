@@ -49,10 +49,17 @@ dnf install nodejs -y &>> $LOG_FILE
 VALIDATE $? "NodeJS Installation"
 echo -e "$G NodeJS is installed successfully. $N" | tee -a $LOG_FILE  
 
-#Create roboshop user
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-VALIDATE $? "User Creation"
-echo -e "$G User roboshop is created successfully. $N" | tee -a $LOG_FILE
+#validate if roboshop user exists
+id roboshop
+if [ $? -eq 0 ]; then
+    # If the user exists, do nothing 
+    echo -e "$G User roboshop exists. $N" | tee -a $LOG_FILE
+else
+    echo -e "$R User roboshop does not exist. $N" | tee -a $LOG_FILE
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOG_FILE
+    VALIDATE $? "User Creation"
+    echo -e "$G User roboshop is created successfully. $N" | tee -a $LOG_FILE
+fi
 
 #Create application directory  
 APP_DIR="/app"
@@ -122,6 +129,6 @@ VALIDATE $? "MongoDB Client Installation"
 echo -e "$G MongoDB Client Installation is Successful. $N" | tee -a $LOG_FILE
 echo -e "$Y Importing MongoDB schema... $N" | tee -a $LOG_FILE 
 
-mongosh --host mongodb.ramwshaws.site </app/db/master-data.js &>> $LOG_FILE
+mongosh --host mongodb.rameshaws.site </app/db/master-data.js &>> $LOG_FILE
 VALIDATE $? "MongoDB Schema Import"
 echo -e "$G MongoDB schema import is Successful. $N" | tee -a $LOG_FILE
