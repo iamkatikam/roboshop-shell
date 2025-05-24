@@ -10,7 +10,6 @@ ZONE_ID="Z0816687161ICZE30XIP3"
 DOMAIN_NAME="rameshaws.site"
 
 for instance in "${ISTTANCES[@]}"; do
-do
   INSTANCE_ID=$(aws ec2 run-instances \
     --image-id ami-09c813fb71547fc4f \
     --instance-type t2.micro \
