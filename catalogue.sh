@@ -77,6 +77,7 @@ echo -e "$G Application code is downloaded successfully. $N" | tee -a $LOG_FILE
 #Extract application code
 echo -e "$Y Extracting application code... $N" | tee -a $LOG_FILE  
 cd $APP_DIR
+rm -rf /app/* &>> $LOG_FILE
 unzip /tmp/catalogue.zip &>> $LOG_FILE
 VALIDATE $? "Application Code Extraction"
 echo -e "$G Application code is extracted successfully. $N" | tee -a $LOG_FILE
