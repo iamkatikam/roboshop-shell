@@ -1,19 +1,15 @@
-#!/bin/bash
 AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-010eb25d82d15b248" # replace with your SG ID
-INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
-ZONE_ID="Z0002010ZLBCRXD0A652" # replace with your ZONE ID
-DOMAIN_NAME="daws84ss.site" # replace with your domain
-#for instance in ${INSTANCES[@]}
-
-
-
-
-
+#INSTANCE_TYPE="t2.micro"
+#KEY_NAME="roboshop-key"
+SECURITY_GROUP="sg-0aba3fdb97c048851"
+#REGION="us-west-2"  
+INSTANCES=("mongodb" "catalogue" "user" "payment" "shipping" "frontend" "rabbitmq" "redis" "mysql" "dispatch" "cart")
+ZONE_ID="Z0816687161ICZE30XIP3"
+DOMAIN_NAME="rameshaws.site"
 
 for instance in $@
 do
-    INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t3.micro --security-group-ids sg-010eb25d82d15b248 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instances[0].InstanceId" --output text)
+    INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t3.micro --security-group-ids sg-0aba3fdb97c048851 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instances[0].InstanceId" --output text)
     if [ $instance != "frontend" ]
     then
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
