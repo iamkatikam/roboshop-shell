@@ -21,7 +21,7 @@ if [ $USERID -ne 0 ]; then
     echo -e "$R You need to run this script as root or with sudo. $N"  | tee -a $LOG_FILE
     exit 1
 else
-    echo "You are running this script as root." &>> $LOG_FILE
+    echo "You are running this script as root." | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
