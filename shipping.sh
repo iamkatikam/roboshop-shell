@@ -32,6 +32,10 @@ VALIDATE(){
     fi
 }
 
+#Set MySQL root password
+echo "Enter the MySQL root password:"
+read -s MYSQL_ROOT_PASSWORD
+
 #Install maven
 echo -e "$Y Installing Maven... $N" | tee -a $LOG_FILE
 dnf install maven -y &>> $LOG_FILE
@@ -103,9 +107,9 @@ dnf install mysql -y &>> $LOG_FILE
 VALIDATE $? "MySQL Installation"
 echo -e "$G MySQL is installed successfully. $N" | tee -a $LOG_FILE
 
-mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/schema.sql
-mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/app-user.sql 
-mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql.rameshaws.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql
+mysql -h mysql.rameshaws.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql 
+mysql -h mysql.rameshaws.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
 VALIDATE $? "MySQL loading schema"
 echo -e "$G MySQL schema and data are loaded successfully. $N" | tee -a $LOG_FILE
 
