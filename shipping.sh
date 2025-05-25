@@ -5,6 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+USERID=$(id -u)
 LOGS_DIR="/var/log/roboshop-scripts"
 SCRIPT_NAME=$(echo $0 | cut -d '.' -f1)
 echo -e "$G The name of the script is: $SCRIPT_NAME"
@@ -15,11 +16,11 @@ echo "script started at $(date)"  | tee -a $LOG_FILE
 SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 
-userid=$(id -u)
-if [ $userid -ne 0 ]; then
+
+if [ $USERID -ne 0 ]; then
     echo -e "$R You need to run this script as root or with sudo. $N"  | tee -a $LOG_FILE
     exit 1
-    else
+else
     echo "You are running this script as root." &>> $LOG_FILE
 fi
 
