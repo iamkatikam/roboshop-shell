@@ -13,6 +13,7 @@ echo -e "$G The log file is: $LOG_FILE $N"
 mkdir -p $LOGS_DIR
 echo "script started at $(date)"  | tee -a $LOG_FILE
 SCRIPT_DIR=$PWD
+START_TIME=$(date +%s)
 
 userid=$(id -u)
 if [ $userid -ne 0 ]; then
@@ -62,3 +63,7 @@ echo -e "$Y Starting Redis service... $N" | tee -a $LOG_FILE
 systemctl start redis &>> $LOG_FILE
 VALIDATE $? "Redis Service Start"
 echo -e "$G Redis Service Start is Successful. $N" | tee -a $LOG_FILE
+
+END_TIME=$(date +%s)
+EXECUTION_TIME=$((END_TIME - START_TIME))
+echo -e "$G Script execution completed in $EXECUTION_TIME seconds. $N" | tee -a $LOG_FILE
