@@ -47,4 +47,18 @@ VALIDATE $? "Redis Installation"
 echo -e "$G Redis is installed successfully. $N" | tee -a $LOG_FILE
 
 #modify redis.conf
-#sed -i -e 's/127.0.0.1/0.0.0.0/g' -e 's/protected '/etc/redis/redis.conf &>> $LOG_FILE
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/c protected-mode no' /etc/redis/redis.conf &>> $LOG_FILE
+VALIDATE $? "Redis Configuration Change"
+echo -e "$G Redis Configuration Change is Successful. $N" | tee -a $LOG_FILE
+
+#Enable and start Redis service
+echo -e "$Y Enabling Redis service... $N" | tee -a $LOG_FILE
+systemctl enable redis &>> $LOG_FILE
+VALIDATE $? "Redis Service Enable"
+echo -e "$G Redis Service Enable is Successful. $N" | tee -a $LOG_FILE
+
+# Start Redis service
+echo -e "$Y Starting Redis service... $N" | tee -a $LOG_FILE
+systemctl start redis &>> $LOG_FILE
+VALIDATE $? "Redis Service Start"
+echo -e "$G Redis Service Start is Successful. $N" | tee -a $LOG_FILE
