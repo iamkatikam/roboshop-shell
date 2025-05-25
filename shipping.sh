@@ -103,9 +103,9 @@ dnf install mysql -y &>> $LOG_FILE
 VALIDATE $? "MySQL Installation"
 echo -e "$G MySQL is installed successfully. $N" | tee -a $LOG_FILE
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/schema.sql
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/app-user.sql 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/schema.sql
+mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/app-user.sql 
+mysql -h mysql.rameshaws.site -uroot -pRoboShop@1 < /app/db/master-data.sql
 VALIDATE $? "MySQL loading schema"
 echo -e "$G MySQL schema and data are loaded successfully. $N" | tee -a $LOG_FILE
 
