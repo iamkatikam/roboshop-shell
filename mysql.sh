@@ -33,8 +33,8 @@ VALIDATE(){
 }
 
 #Set MySQL root password
-echo "Enter the MySQL root password:"
-read -s MYSQL_ROOT_PASSWORD
+#echo "Enter the MySQL root password:"
+#read -s MYSQL_ROOT_PASSWORD
 
 #install MySQL
 echo -e "$Y Installing MySQL... $N" | tee -a $LOG_FILE
@@ -55,7 +55,9 @@ VALIDATE $? "MySQL Service Start"
 echo -e "$G MySQL Service Start is Successful. $N" | tee -a $LOG_FILE
 
 
-mysql_secure_installation --set-root-pass MYSQL_ROOT_PASSWORD
+mysql_secure_installation --set-root-pass RoboShop@123 &>> $LOG_FILE
+VALIDATE $? "MySQL Secure Installation"
+echo -e "$G MySQL Secure Installation is Successful. $N" | tee -a $LOG_FILE
 
 END_TIME=$(date +%s)
 EXECUTION_TIME=$((END_TIME - START_TIME))

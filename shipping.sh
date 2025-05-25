@@ -64,14 +64,14 @@ echo -e "$G Application directory is created successfully. $N" | tee -a $LOG_FIL
 
 #Download application code
 echo -e "$Y Downloading application code... $N" | tee -a $LOG_FILE
-curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $LOG_FILE
 VALIDATE $? "Application Code Download"
 echo -e "$G Application code is downloaded successfully. $N" | tee -a $LOG_FILE
 
 #Extract application code
-echo -e "$Y Extracting application code... $N" | tee -a $LOG_FILE  
+echo -e "$Y Extracting application code... $N" | tee -a $LOG_FILE 
+rm -rf /app/* &>> $LOG_FILE 
 cd $APP_DIR
-rm -rf /app/* &>> $LOG_FILE
 unzip /tmp/shipping.zip &>> $LOG_FILE
 VALIDATE $? "Application Code Extraction"
 echo -e "$G Application code is extracted successfully. $N" | tee -a $LOG_FILE
