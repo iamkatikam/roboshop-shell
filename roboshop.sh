@@ -1,9 +1,9 @@
 #!/bin/bash
 
 AMI_ID="ami-09c813fb71547fc4f"
-INSTANCE_TYPE="t2.micro"
+INSTANCE_TYPE="t3.micro"
 #KEY_NAME="roboshop-key"
-SECURITY_GROUP="sg-0aba3fdb97c048851"
+SECURITY_GROUP="sg-0a30f9b8a8f6adb2b"
 #REGION="us-west-2"  
 INSTANCES=("mongodb" "catalogue" "user" "payment" "shipping" "frontend" "rabbitmq" "redis" "mysql" "dispatch" "cart")
 ZONE_ID="Z0816687161ICZE30XIP3"
